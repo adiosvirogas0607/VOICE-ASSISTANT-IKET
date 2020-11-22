@@ -1,0 +1,326 @@
+<html>
+<head>
+<title>iketassistant.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+iketassistant.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">json</span>
+<span class="s0">import </span><span class="s1">smtplib</span>
+<span class="s0">import </span><span class="s1">time</span>
+
+<span class="s0">import </span><span class="s1">jsonobj </span><span class="s0">as </span><span class="s1">jsonObj</span>
+<span class="s0">import </span><span class="s1">pyjokes </span><span class="s0">as </span><span class="s1">pyjokes</span>
+<span class="s0">import </span><span class="s1">pyttsx3</span>
+<span class="s0">import </span><span class="s1">datetime</span>
+<span class="s0">import </span><span class="s1">speech_recognition </span><span class="s0">as </span><span class="s1">sr</span>
+<span class="s0">import </span><span class="s1">wikipedia</span>
+<span class="s0">import  </span><span class="s1">webbrowser</span>
+<span class="s0">import </span><span class="s1">PyPDF2</span>
+<span class="s0">import </span><span class="s1">shutil</span>
+<span class="s0">import </span><span class="s1">smtplib</span>
+
+<span class="s0">import </span><span class="s1">wolframalpha</span>
+
+<span class="s1">engine=pyttsx3.init(</span><span class="s2">'sapi5'</span><span class="s1">)</span>
+<span class="s1">voices=engine.getProperty(</span><span class="s2">'voices'</span><span class="s1">)</span>
+<span class="s1">engine.setProperty(</span><span class="s2">'voice'</span><span class="s0">,</span><span class="s1">voices[</span><span class="s3">1</span><span class="s1">].id)</span>
+
+
+
+
+<span class="s0">def </span><span class="s1">speak(audio):</span>
+    <span class="s1">engine.say(audio)</span>
+    <span class="s1">engine.runAndWait()</span>
+
+<span class="s0">def </span><span class="s1">wishMe():</span>
+    <span class="s1">hour=int(datetime.datetime.now().hour)</span>
+    <span class="s0">if </span><span class="s1">hour&gt;=</span><span class="s3">0 </span><span class="s0">and </span><span class="s1">hour&lt;</span><span class="s3">12</span><span class="s1">:</span>
+        <span class="s1">speak(</span><span class="s2">&quot;Good Morning!&quot;</span><span class="s1">)</span>
+    <span class="s0">elif </span><span class="s1">hour&gt;=</span><span class="s3">12 </span><span class="s0">and </span><span class="s1">hour&lt;=</span><span class="s3">18</span><span class="s1">:</span>
+        <span class="s1">speak(</span><span class="s2">&quot;Good Afternoon!&quot;</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">speak(</span><span class="s2">&quot;Good Evening&quot;</span><span class="s1">)</span>
+
+
+
+<span class="s0">def </span><span class="s1">takeCommand():</span>
+    <span class="s1">r= sr.Recognizer()</span>
+    <span class="s0">with </span><span class="s1">sr.Microphone() </span><span class="s0">as </span><span class="s1">source:</span>
+        <span class="s1">print(</span><span class="s2">&quot;Listening...&quot;</span><span class="s1">)</span>
+        <span class="s1">r.pause_threshold=</span><span class="s3">1</span>
+        <span class="s1">audio=r.listen(source)</span>
+
+    <span class="s0">try</span><span class="s1">:</span>
+        <span class="s1">print(</span><span class="s2">&quot;Recognizing...&quot;</span><span class="s1">)</span>
+        <span class="s1">query=r.recognize_google(audio</span><span class="s0">,</span><span class="s1">language=</span><span class="s2">'en-in'</span><span class="s1">)</span>
+        <span class="s1">print(</span><span class="s2">f&quot;Person said: </span><span class="s0">{</span><span class="s1">query</span><span class="s0">}\n</span><span class="s2">&quot;</span><span class="s1">)</span>
+    <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+        <span class="s1">print(</span><span class="s2">&quot;Say that again please&quot;</span><span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s2">&quot;None&quot;</span>
+    <span class="s0">return </span><span class="s1">query</span>
+
+
+
+
+
+<span class="s1">speak(</span><span class="s2">&quot;Hi I am Iket. How caN i HELP YOU&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">def </span><span class="s1">sendEmail(to</span><span class="s0">, </span><span class="s1">content) :</span>
+    <span class="s0">pass</span>
+
+
+<span class="s0">def </span><span class="s1">assname(args) :</span>
+    <span class="s0">pass</span>
+
+
+<span class="s0">def </span><span class="s1">urlopen(param: object)  -&gt; object:</span>
+    <span class="s0">pass</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s2">'__main__'</span><span class="s1">:</span>
+   <span class="s1">wishMe()</span>
+
+   <span class="s4">#while True:</span>
+   <span class="s0">if </span><span class="s3">1</span><span class="s1">:</span>
+       <span class="s1">query=takeCommand().lower()</span>
+       <span class="s0">if </span><span class="s2">'wikipedia' </span><span class="s0">in </span><span class="s1">query:</span>
+           <span class="s1">speak(</span><span class="s2">&quot;Searching Wikipedia...&quot;</span><span class="s1">)</span>
+           <span class="s1">results=query.replace(query</span><span class="s0">,</span><span class="s1">sentences=</span><span class="s3">2 </span><span class="s1">)</span>
+           <span class="s1">speak(</span><span class="s2">&quot;According to Wikipedia..&quot;</span><span class="s1">)</span>
+           <span class="s1">print(results)</span>
+           <span class="s1">speak(results)</span>
+
+       <span class="s0">elif </span><span class="s2">'open youtube' </span><span class="s0">in </span><span class="s1">query:</span>
+           <span class="s1">webbrowser.open(</span><span class="s2">&quot;youtube.com&quot;</span><span class="s1">)</span>
+       <span class="s0">elif </span><span class="s2">'search' </span><span class="s0">in </span><span class="s1">query:</span>
+           <span class="s1">webbrowser.open(</span><span class="s2">'google.com'</span><span class="s1">)</span>
+       <span class="s0">elif </span><span class="s2">'the time' </span><span class="s0">in </span><span class="s1">query:</span>
+           <span class="s1">strTime= datetime.datetime.now().strftime(</span><span class="s2">&quot;%H:%M:%S&quot;</span><span class="s1">)</span>
+           <span class="s1">speak(</span><span class="s2">f&quot;The time is </span><span class="s0">{</span><span class="s1">strTime</span><span class="s0">}</span><span class="s2">&quot;</span><span class="s1">)</span>
+       <span class="s0">elif </span><span class="s2">'read' </span><span class="s0">in </span><span class="s1">query:</span>
+           <span class="s1">book = open(</span><span class="s2">'algorithm.pdf'</span><span class="s0">, </span><span class="s2">'rb'</span><span class="s1">)</span>
+           <span class="s1">pdfreader = PyPDF2.PdfFileReader(book)</span>
+           <span class="s1">pages = pdfreader.numPages</span>
+           <span class="s1">print(pages)</span>
+
+           <span class="s1">speaker = pyttsx3.init()</span>
+           <span class="s1">page = pdfreader.getPage(</span><span class="s3">16</span><span class="s1">)</span>
+           <span class="s1">text = page.extractText()</span>
+           <span class="s1">speaker.say(text)</span>
+           <span class="s1">speaker.runAndWait()</span>
+       <span class="s0">elif </span><span class="s2">'email to'  </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s0">try </span><span class="s1">:</span>
+               <span class="s1">speak(</span><span class="s2">&quot;What should I say?&quot;</span><span class="s1">)</span>
+               <span class="s1">content = takeCommand()</span>
+               <span class="s1">to = </span><span class="s2">&quot;Receiver email address&quot;</span>
+               <span class="s1">sendEmail(to</span><span class="s0">, </span><span class="s1">content)</span>
+               <span class="s1">speak(</span><span class="s2">&quot;Email has been sent !&quot;</span><span class="s1">)</span>
+           <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e :</span>
+               <span class="s1">print(e)</span>
+               <span class="s1">speak(</span><span class="s2">&quot;I am not able to send this email&quot;</span><span class="s1">)</span>
+
+       <span class="s0">elif </span><span class="s2">'send a mail' </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s0">try </span><span class="s1">:</span>
+               <span class="s1">speak(</span><span class="s2">&quot;What should I say?&quot;</span><span class="s1">)</span>
+               <span class="s1">content = takeCommand()</span>
+               <span class="s1">speak(</span><span class="s2">&quot;whom should i send&quot;</span><span class="s1">)</span>
+               <span class="s1">to = input()</span>
+               <span class="s1">sendEmail(to</span><span class="s0">, </span><span class="s1">content)</span>
+               <span class="s1">speak(</span><span class="s2">&quot;Email has been sent !&quot;</span><span class="s1">)</span>
+           <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e :</span>
+               <span class="s1">print(e)</span>
+               <span class="s1">speak(</span><span class="s2">&quot;I am not able to send this email&quot;</span><span class="s1">)</span>
+       <span class="s0">elif </span><span class="s2">'how are you' </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;I am fine, Thank you&quot;</span><span class="s1">)</span>
+           <span class="s1">speak(</span><span class="s2">&quot;How are you my Friend?&quot;</span><span class="s1">)</span>
+
+       <span class="s0">elif </span><span class="s2">'fine' </span><span class="s0">in </span><span class="s1">query </span><span class="s0">or </span><span class="s2">&quot;good&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;Glad to hear about you!&quot;</span><span class="s1">)</span>
+
+       <span class="s0">elif </span><span class="s2">&quot;change my name to&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">query = query.replace(</span><span class="s2">&quot;change my name to&quot;</span><span class="s0">, </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+           <span class="s1">assname = query</span>
+
+
+       <span class="s0">elif </span><span class="s2">&quot;what's your name&quot; </span><span class="s0">in </span><span class="s1">query </span><span class="s0">or </span><span class="s2">&quot;What is your name&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;My friends call me&quot;</span><span class="s1">)</span>
+           <span class="s1">speak(assname)</span>
+           <span class="s1">print(</span><span class="s2">&quot;My friends call me&quot;</span><span class="s0">, </span><span class="s1">assname)</span>
+
+       <span class="s0">elif </span><span class="s2">'exit' </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;Thanks for giving me your time,Hope you have a great day ahead!&quot;</span><span class="s1">)</span>
+           <span class="s1">exit()</span>
+
+       <span class="s0">elif </span><span class="s2">&quot;who made you&quot; </span><span class="s0">in </span><span class="s1">query </span><span class="s0">or </span><span class="s2">&quot;who created you&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;I am IKET,Created by Aditi and Abhyuday!&quot;</span><span class="s1">)</span>
+
+       <span class="s0">elif </span><span class="s2">'joke' </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(pyjokes.get_joke())</span>
+
+       <span class="s0">elif </span><span class="s2">&quot;calculate&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+
+           <span class="s1">app_id = </span><span class="s2">&quot;Wolframalpha api id&quot;</span>
+           <span class="s1">client = wolframalpha.Client(app_id)</span>
+           <span class="s1">indx = query.lower().split().index(</span><span class="s2">'calculate'</span><span class="s1">)</span>
+           <span class="s1">query = query.split()[indx + </span><span class="s3">1 </span><span class="s1">:]</span>
+           <span class="s1">res = client.query(</span><span class="s2">' '</span><span class="s1">.join(query))</span>
+           <span class="s1">answer = next(res.results).text</span>
+           <span class="s1">print(</span><span class="s2">&quot;The answer is &quot; </span><span class="s1">+ answer)</span>
+           <span class="s1">speak(</span><span class="s2">&quot;The answer is &quot; </span><span class="s1">+ answer)</span>
+
+       <span class="s0">elif </span><span class="s2">'search' </span><span class="s0">in </span><span class="s1">query </span><span class="s0">or </span><span class="s2">'play' </span><span class="s0">in </span><span class="s1">query :</span>
+
+           <span class="s1">query = query.replace(</span><span class="s2">&quot;search&quot;</span><span class="s0">, </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+           <span class="s1">query = query.replace(</span><span class="s2">&quot;play&quot;</span><span class="s0">, </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+           <span class="s1">webbrowser.open(query)</span>
+
+
+       <span class="s0">elif </span><span class="s2">&quot;where is&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">query = query.replace(</span><span class="s2">&quot;where is&quot;</span><span class="s0">, </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+           <span class="s1">location = query</span>
+           <span class="s1">speak(</span><span class="s2">&quot;User asked to Locate&quot;</span><span class="s1">)</span>
+           <span class="s1">speak(location)</span>
+           <span class="s1">webbrowser.open(</span><span class="s2">'https://www.google.co.in/maps/@21.125498,81.914063,5z'</span><span class="s1">+location+</span><span class="s2">&quot; &quot;</span><span class="s1">)</span>
+
+       <span class="s0">elif </span><span class="s2">&quot;write a note&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;What should i write, Friend&quot;</span><span class="s1">)</span>
+           <span class="s1">note = takeCommand()</span>
+           <span class="s1">file = open(</span><span class="s2">'iketassistant.py.txt'</span><span class="s0">, </span><span class="s2">'w'</span><span class="s1">)</span>
+           <span class="s1">speak(</span><span class="s2">&quot;Friend, Should i include date and time&quot;</span><span class="s1">)</span>
+           <span class="s1">snfm = takeCommand()</span>
+           <span class="s0">if </span><span class="s2">'yes' </span><span class="s0">in </span><span class="s1">snfm </span><span class="s0">or </span><span class="s2">'sure' </span><span class="s0">in </span><span class="s1">snfm :</span>
+               <span class="s1">strTime = datetime.datetime.now().strftime(</span><span class="s2">&quot;% H:% M:% S&quot;</span><span class="s1">)</span>
+               <span class="s1">file.write(strTime)</span>
+               <span class="s1">file.write(</span><span class="s2">&quot; :- &quot;</span><span class="s1">)</span>
+               <span class="s1">file.write(note)</span>
+           <span class="s0">else </span><span class="s1">:</span>
+               <span class="s1">file.write(note)</span>
+
+       <span class="s0">elif </span><span class="s2">&quot;show note&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;Showing Notes&quot;</span><span class="s1">)</span>
+           <span class="s1">file = open(</span><span class="s2">&quot;final.py.py.txt&quot;</span><span class="s0">, </span><span class="s2">&quot;r&quot;</span><span class="s1">)</span>
+           <span class="s1">print(file.read())</span>
+           <span class="s1">speak(file.read(</span><span class="s3">6</span><span class="s1">))</span>
+
+
+       <span class="s0">elif </span><span class="s2">&quot;send message &quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s4"># You need to create an account on Twilio to use this service</span>
+           <span class="s1">account_sid = </span><span class="s2">'Account Sid key'</span>
+           <span class="s1">auth_token = </span><span class="s2">'Auth token'</span>
+           <span class="s1">client = wolframalpha.Client(account_sid)</span>
+
+           <span class="s1">message = client.messages \</span>
+               <span class="s1">.create(</span>
+               <span class="s1">body=takeCommand()</span><span class="s0">,</span>
+               <span class="s1">from_=</span><span class="s2">'Sender No'</span><span class="s0">,</span>
+               <span class="s1">to=</span><span class="s2">'Receiver No'</span>
+           <span class="s1">)</span>
+           <span class="s1">print(message.sid)</span>
+
+       <span class="s0">elif </span><span class="s2">&quot;Good Morning&quot; </span><span class="s0">in </span><span class="s1">query :</span>
+           <span class="s1">speak(</span><span class="s2">&quot;A warm&quot; </span><span class="s1">+ query)</span>
+           <span class="s1">speak(</span><span class="s2">&quot;How are you Friend?&quot;</span><span class="s1">)</span>
+           <span class="s1">speak(assname)</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <span class="s0">elif </span><span class="s2">&quot;don't listen&quot; </span><span class="s0">in </span><span class="s1">query </span><span class="s0">or </span><span class="s2">&quot;stop listening&quot; </span><span class="s0">in </span><span class="s1">query:</span>
+              <span class="s1">speak(</span><span class="s2">&quot;For How long?&quot;</span><span class="s1">)</span>
+              <span class="s1">a = int(takeCommand())</span>
+              <span class="s1">time.sleep(a)</span>
+              <span class="s1">print(a)</span>
+
+
+<span class="s0">def </span><span class="s1">usrname():</span>
+    <span class="s1">speak(</span><span class="s2">&quot;What should i call you Friend&quot;</span><span class="s1">)</span>
+    <span class="s1">uname = takeCommand()</span>
+    <span class="s1">speak(</span><span class="s2">&quot;Welcome Friend&quot;</span><span class="s1">)</span>
+    <span class="s1">speak(uname)</span>
+    <span class="s1">columns = shutil.get_terminal_size().columns</span>
+
+
+
+<span class="s0">def </span><span class="s1">sendEmail(to</span><span class="s0">, </span><span class="s1">content):</span>
+    <span class="s1">server = smtplib.SMTP(</span><span class="s2">'smtp.gmail.com'</span><span class="s0">, </span><span class="s3">587</span><span class="s1">)</span>
+    <span class="s1">server.ehlo()</span>
+    <span class="s1">server.starttls()</span>
+
+
+    <span class="s1">server.login(</span><span class="s2">'your email id'</span><span class="s0">, </span><span class="s2">'your email passowrd'</span><span class="s1">)</span>
+    <span class="s1">server.sendmail(</span><span class="s2">'your email id'</span><span class="s0">, </span><span class="s1">to</span><span class="s0">, </span><span class="s1">content)</span>
+    <span class="s1">server.close()</span>
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s2">'__main__'</span><span class="s1">:</span>
+    <span class="s1">wishMe()</span>
+    <span class="s1">takeCommand()</span>
+    
+    <span class="s1">sendEmail(to</span><span class="s0">,</span><span class="s1">content)</span>
+    <span class="s1">usrname()</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</body>
+</html>
